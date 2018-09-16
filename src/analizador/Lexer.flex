@@ -43,6 +43,7 @@ public String lexeme;
 ">>" {return OPERADOR;}
 "<<" {return OPERADOR;}
 "<<=" {return OPERADOR;}
+">>=" {return OPERADOR;}
 "+" {return OPERADOR;}
 "-" {return OPERADOR;}
 "*" {return OPERADOR;}
@@ -78,8 +79,7 @@ public String lexeme;
 "OF" {return PALABRA_RESERVADA;}
 "OR" {return PALABRA_RESERVADA;}
 "PACKED" {return PALABRA_RESERVADA;}
-"PROCEDU" {return PALABRA_RESERVADA;}
-"RE" {return PALABRA_RESERVADA;}
+"PROCEDURE" {return PALABRA_RESERVADA;}
 "PROGRAM" {return PALABRA_RESERVADA;}
 "READ" {return PALABRA_RESERVADA;}
 "REAL" {return PALABRA_RESERVADA;}
