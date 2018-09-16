@@ -3,12 +3,12 @@ package analizador;
 public enum Token {
 
     // |------------------- IDENTIFICADORES -------------------|
-    IDENTIFICADOR("Identificador"),
+    IDENTIFICADOR("LineaToken"),
 
     // |------------------- OPERADORES -------------------|
     OPERADOR("OPERADOR"),
     // Aritmeticos : XOR DIV MOD
-    OPERADOR_ADICION("Operador de adicción"),
+    OPERADOR_ADICION("Operador de adición"),
     OPERADOR_SUSTRACCION("Operador de sustracción"),
     OPERADOR_MULTIPLICACION("Operador de multiplicación"),
     OPERADOR_DIVISION("Operador de división"),

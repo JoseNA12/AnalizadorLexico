@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,8 +17,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,14 +33,14 @@ public class Main extends Application {
 
     @FXML public Button btn_abrir_archivo_id, btn_procesar_id;
 
-    private List<Identificador> tokenslist;
+    private List<LineaToken> tokenslist;
 
     private Stage miPrimaryStage;
 
     public void probarLexerFile()
     {
-        int contIDs=0;
-        tokenslist = new LinkedList<Identificador>();
+        tokenslist = new LinkedList<LineaToken>();
+        info_tabla_tokens.removeAll();
         File fichero = new File ("fichero.txt");
         PrintWriter writer;
 
@@ -74,42 +72,40 @@ public class Main extends Application {
 
             if (token == null)
             {
-                for(int i=0;i<tokenslist.size();i++)
+                /*for(int i=0;i<tokenslist.size();i++)
                 {
                     System.out.println(tokenslist.get(i).nombre + "=" + tokenslist.get(i).ID);
-                }
-                agregarElementoTablaTokens(resultado, "", "");
+                }*/
+                agregarElementosTablaTokens();
+                System.out.println("aquí termina");
                 return;
             }
+
             switch (token)
             {
                 case OPERADOR:
-                    resultado=resultado+ "<->"; // corregir por los correctos (estos es solo para probar que funciona)
+                    resultado="<->"; // corregir por los correctos (estos es solo para probar que funciona)
                     break;
                 case PALABRA_RESERVADA:
-                    resultado=resultado+ "<*>";
+                    resultado="<*>";
                     break;
                 case LITERAL:
-                    resultado=resultado+ "</>";
+                    resultado="</>";
                     break;
                 case ERROR:
-                    resultado=resultado+ "Error, simbolo no reconocido ";
+                    resultado="Error, simbolo no reconocido ";
                     break;
                 case IDENTIFICADOR: {
-                    contIDs++;
-                    Identificador tokenitem=new Identificador();
-                    tokenitem.nombre=lexer.lexeme;
-                    tokenitem.ID=contIDs;
-                    tokenslist.add(tokenitem);
-                    resultado=resultado+ "<ID" + contIDs + "> ";
+                    resultado = "< " + lexer.lexeme + "> ";
                     break;
                 }
                 case INT:
-                    resultado=resultado+ "< " + lexer.lexeme + "> ";
+                    resultado="< " + lexer.lexeme + "> ";
                     break;
                 default:
-                    resultado=resultado+ "<"+ lexer.lexeme + "> ";
+                    resultado="<"+ lexer.lexeme + "> ";
             }
+            agregarLineaToken(resultado, token.toString(), lexer.line);
         }
     }
 
@@ -161,15 +157,54 @@ public class Main extends Application {
     }
 
     /**
-     * Encargado de agregar valores a la tabla de tokens de la interfaz
-     * @param pToken
-     * @param pTipo
-     * @param pLineas
+     * Agrega una nueva linea al tokenlist
+     * Si ya existe el token llama a agregarLinea(int), sino crea una nueva Linea de Token con un nuevo HashMap
+     * @param token token analizado
+     * @param tipoToken tipo del token analizado
+     * @param numeroLinea número de línea de aparición del token analizado
      */
-    private void agregarElementoTablaTokens(String pToken, String pTipo, String pLineas)
+    private void agregarLineaToken(String token, String tipoToken, int numeroLinea){
+        LineaToken linea = null;
+        boolean existe = false;
+        for(int i=0; i<tokenslist.size(); i++){
+            linea = tokenslist.get(i);
+            if(linea.token.equalsIgnoreCase(token)){
+                existe = true;
+                break;
+            }
+        }
+        if(existe){
+            linea.agregarLinea(numeroLinea);
+        }else{
+            Map<Integer, Integer> lineasAparicion = new HashMap<Integer, Integer>();
+            lineasAparicion.put(numeroLinea, 1);
+            tokenslist.add(new LineaToken(token, tipoToken, lineasAparicion));
+        }
+    }
+
+    /**
+     * Encargado de agregar valores a la tabla de tokens de la interfaz
+     * Utiliza el LinkedList tokenlist que posee todas las lineas de código resumidas por apariciones del token
+     */
+    private void agregarElementosTablaTokens()
     {
-        info_tabla_tokens.add(new ItemTablaTokens(new SimpleStringProperty(pToken),
-                new SimpleStringProperty(pTipo), new SimpleStringProperty(pLineas)));
+        String lineas;
+        for(LineaToken l : tokenslist){
+            lineas = "";
+            Set<Integer> clavesLineas = l.lineasAparicion.keySet();     //retorna el set de claves del map
+            for (Iterator<Integer> it = clavesLineas.iterator(); it.hasNext(); ) {
+                Integer key = it.next();
+                int cantidadApariciones = l.lineasAparicion.get(key);
+
+                if(cantidadApariciones > 1){
+                    lineas += (key + 1) + "(" + l.lineasAparicion.get(key) + "), ";
+                }else{
+                    lineas += (key + 1) + ", ";
+                }
+            }
+            info_tabla_tokens.add(new ItemTablaTokens(new SimpleStringProperty(l.token),
+                    new SimpleStringProperty(l.tipoToken), new SimpleStringProperty(lineas)));
+        }
     }
 
     /**
