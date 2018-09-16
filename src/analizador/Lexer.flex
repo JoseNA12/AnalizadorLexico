@@ -3,15 +3,18 @@ import static analizador.Token.*;
 %%
 %class Lexer
 %type Token
-L = [a-zA-Z_]
-D = [0-9]
-WHITE=[ \t\r\n]
+LENGUAGE = [ABC]
+LETRA = [a-zA-Z_]
+DIGITO = [0-9]
+ESPACIO =[ \t\r\n]
+SIMBOLO = "*"|"+"|"-"|"/"|"#"|"!"|"#"|"$"|"%"|"&"|"/"|"("|")"|"="|"?"|"¡"|"{"|"}"|","|"."|"-"|";"|":"|"_"|"["|"]"|"<"|">"
 %{
 public String lexeme;
 %}
 %%
-{WHITE} {/*Ignore*/} // espacio en blanco
-"//".* {/*Ignore*/} // dos slash de comentario
+{ESPACIO} {/*Ignore*/} // espacio en blanco
+// "//".* {/*Ignore*/} // dos slash de comentario
+"<<EOF>>" {/*Ignore*/}
 "," {return OPERADOR;}
 ";" {return OPERADOR;}
 "++" {return OPERADOR;}
@@ -95,6 +98,10 @@ public String lexeme;
 "WITH" {return PALABRA_RESERVADA;}
 "WRITE" {return PALABRA_RESERVADA;}
 "XOR" {return PALABRA_RESERVADA;}
-{L}({L}|{D})* {lexeme=yytext(); return IDENTIFICADOR;} // Identificadores
-("(-"{D}+")")|{D}+ {lexeme=yytext(); return INT;} // Un numero entero
+
+{LETRA}({LETRA}|{DIGITO})* {lexeme=yytext(); return IDENTIFICADOR;} // Identificadores
+({DIGITO}+"."{DIGITO}+)|({DIGITO}"."{DIGITO}+)("E-"{DIGITO}+|"E"{DIGITO}+) {lexeme=yytext(); return LITERAL;}
+("'"({LETRA}|{DIGITO}|{ESPACIO}|{SIMBOLO})+"'") {lexeme=yytext(); return LITERAL;} // falta el caso de #65
+
+("(-"{DIGITO}+")")|{DIGITO}+ {lexeme=yytext(); return INT;} // Un numero entero
 . {return ERROR;}
