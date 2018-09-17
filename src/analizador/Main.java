@@ -40,7 +40,7 @@ public class Main extends Application {
     public void probarLexerFile()
     {
         tokenslist = new LinkedList<LineaToken>();
-        info_tabla_tokens.removeAll();
+        info_tabla_tokens.clear();
         File fichero = new File ("fichero.txt");
         PrintWriter writer;
 
@@ -72,40 +72,34 @@ public class Main extends Application {
 
             if (token == null)
             {
-                /*for(int i=0;i<tokenslist.size();i++)
-                {
-                    System.out.println(tokenslist.get(i).nombre + "=" + tokenslist.get(i).ID);
-                }*/
                 agregarElementosTablaTokens();
-                System.out.println("aquí termina");
                 return;
             }
 
-            switch (token)
-            {
+            /*switch (token) {
                 case OPERADOR:
-                    resultado="<->"; // corregir por los correctos (estos es solo para probar que funciona)
+                    resultado = "<->"; // corregir por los correctos (estos es solo para probar que funciona)
                     break;
                 case PALABRA_RESERVADA:
-                    resultado="<*>";
+                    resultado = "<*>";
                     break;
                 case LITERAL:
-                    resultado="</>";
+                    resultado = "</>";
                     break;
                 case ERROR:
-                    resultado="Error, simbolo no reconocido ";
+                    resultado = "Error, simbolo no reconocido ";
                     break;
                 case IDENTIFICADOR: {
                     resultado = "< " + lexer.lexeme + "> ";
                     break;
                 }
                 case INT:
-                    resultado="< " + lexer.lexeme + "> ";
+                    resultado = "< " + lexer.lexeme + "> ";
                     break;
                 default:
-                    resultado="<"+ lexer.lexeme + "> ";
-            }
-            agregarLineaToken(resultado, token.toString(), lexer.line);
+                    resultado = "<" + lexer.lexeme + "> ";
+            }*/
+            agregarLineaToken(lexer.lexeme, token.toString(), lexer.line);
         }
     }
 
