@@ -33,14 +33,16 @@ public class Main extends Application {
 
     @FXML public Button btn_abrir_archivo_id, btn_procesar_id;
 
-    private List<LineaToken> tokenslist;
+    private List<LineaToken> tokenslist, tokenslistErrores;
 
     private Stage miPrimaryStage;
 
     public void probarLexerFile()
     {
         tokenslist = new LinkedList<LineaToken>();
+        tokenslistErrores = new LinkedList<LineaToken>();
         info_tabla_tokens.clear();
+        info_tabla_errores.clear();
         File fichero = new File ("fichero.txt");
         PrintWriter writer;
 
@@ -73,6 +75,7 @@ public class Main extends Application {
             if (token == null)
             {
                 agregarElementosTablaTokens();
+                agregarElementosTablaTokensErrores();
                 return;
             }
 
@@ -99,7 +102,15 @@ public class Main extends Application {
                 default:
                     resultado = "<" + lexer.lexeme + "> ";
             }*/
-            agregarLineaToken(lexer.lexeme, token.getNombre(), lexer.line);
+            if (token != Token.ERROR)
+            {
+                agregarLineaToken(lexer.lexeme, token.getNombre(), lexer.line);
+            }
+            else
+            {
+                agregarLineaTokenErrores(lexer.lexeme, lexer.line);
+            }
+
         }
     }
 
@@ -202,15 +213,54 @@ public class Main extends Application {
     }
 
     /**
-     * Encargado de agregar valores a la tabla de errores de la interfaz
-     * @param pToken
-     * @param pLineas
+     * Agrega una nueva linea al tokenlistErrrores
+     * Si ya existe el token llama a agregarLinea(int), sino crea una nueva Linea de Token con un nuevo HashMap
+     * @param token token analizado
+     * @param numeroLinea número de línea de aparición del token analizado
      */
-    private void agregarElementoTablaError(String pToken, String pLineas)
-    {
-        info_tabla_errores.add(new ItemTablaErrores(new SimpleStringProperty(pToken),
-                new SimpleStringProperty(pLineas)));
+    private void agregarLineaTokenErrores(String token, int numeroLinea){
+        LineaToken linea = null;
+        boolean existe = false;
+        for(int i=0; i< tokenslistErrores.size(); i++){
+            linea = tokenslistErrores.get(i);
+            if(linea.token.equalsIgnoreCase(token)){
+                existe = true;
+                break;
+            }
+        }
+        if(existe){
+            linea.agregarLinea(numeroLinea);
+        }else{
+            Map<Integer, Integer> lineasAparicion = new HashMap<Integer, Integer>();
+            lineasAparicion.put(numeroLinea, 1);
+            tokenslistErrores.add(new LineaToken(token, "", lineasAparicion));
+        }
     }
+
+    /**
+     * Encargado de agregar valores a la tabla de tokens de errores de la interfaz
+     * Utiliza el LinkedList tokenlist que posee todas las lineas de código resumidas por apariciones del token
+     */
+    private void agregarElementosTablaTokensErrores()
+    {
+        String lineas;
+        for(LineaToken l : tokenslistErrores){
+            lineas = "";
+            Set<Integer> clavesLineas = l.lineasAparicion.keySet();     //retorna el set de claves del map
+            for (Iterator<Integer> it = clavesLineas.iterator(); it.hasNext(); ) {
+                Integer key = it.next();
+                int cantidadApariciones = l.lineasAparicion.get(key);
+
+                if(cantidadApariciones > 1){
+                    lineas += (key + 1) + "(" + l.lineasAparicion.get(key) + "), ";
+                }else{
+                    lineas += (key + 1) + ", ";
+                }
+            }
+            info_tabla_errores.add(new ItemTablaErrores(new SimpleStringProperty(l.token), new SimpleStringProperty(lineas)));
+        }
+    }
+
 
     /**
      * Encargado de abrir el FileChooser para seleccionar el archivo txt

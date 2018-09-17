@@ -54,11 +54,13 @@ public enum Token {
     // |------------------- LITERALES -------------------|
     LITERAL("Literal"),
     LITERAL_NUM_ENTERO("Literal número entero"),
-    LITERAL_NUM_FLOTANTE("Literal número floatante"),
+    LITERAL_NUM_FLOTANTE("Literal número flotante"),
     LITERAL_CARACTER("Literal caracter"),
     LITERAL_STRING("Literal strings"),
 
-    ERROR("Error");
+    ERROR("Error"),
+
+    COMENTARIO("Comentario");
 
 
     String nombre;

@@ -8,17 +8,18 @@ LETRA = [a-zA-Z_]
 DIGITO = [0-9]
 ESPACIO =[ \t\r\n]
 SIMBOLO = "*"|"+"|"-"|"/"|"#"|"!"|"#"|"$"|"%"|"&"|"/"|"("|")"|"="|"?"|"¡"|"{"|"}"|","|"."|"-"|";"|":"|"_"|"["|"]"|"<"|">"
+// TERMINADORLINEA = \r |\n |\r\n
 %{
 public String lexeme;
 public int line;
 %}
 %line
 %%
-{ESPACIO} {/*Ignore*/} // espacio en blanco
-"//".* {/*Ignore*/} // dos slash de comentario
-("\(\*" [^*] ~"\*\)" | "\(\*" "\*"+ "\)") {/*Ignore*/} // comentario multilínea
-("{" [^*] ~"}" | "{" "}") {/*Ignore*/} // comentario multilínea
-"<<EOF>>" {/*Ignore*/}
+{ESPACIO} {/*No se procesa*/} // espacio en blanco
+"//".* {/*No se procesa*/} // dos slash de comentario
+("\(\*" [^*] ~"\*\)" | "\(\*" "\*"+ "\)") {/*No se procesa*/} // comentario multilínea
+("{" [^*] ~"}" | "{" "}") {/*No se procesa*/} // comentario multilínea
+"<<EOF>>" {/*No se procesa*/}
 "," {lexeme=yytext(); line=yyline; return OPERADOR;}
 ";" {lexeme=yytext(); line=yyline; return OPERADOR;}
 "++" {lexeme=yytext(); line=yyline; return OPERADOR_INCREMENTO;}
@@ -101,10 +102,12 @@ public int line;
 "XOR" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;} // operador
 
 
-{LETRA}({LETRA}|{DIGITO})*{1, 127} {lexeme=yytext(); line=yyline; return IDENTIFICADOR;} // Identificadores
-({DIGITO}+"."{DIGITO}+)|({DIGITO}"."{DIGITO}+)("E-"{DIGITO}+|"E"{DIGITO}+) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
+
+{LETRA}({LETRA}|{DIGITO}){1, 127} {lexeme=yytext(); line=yyline; return IDENTIFICADOR;} // Identificadores
+({DIGITO}+"."{DIGITO}+)|(({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
 (\"({LETRA}|{DIGITO}|{ESPACIO}|{SIMBOLO})*+\" | ("#"{DIGITO}{DIGITO})) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
-[-+]?{DIGITO}+ {lexeme=yytext(); line=yyline; return LITERAL_NUM_ENTERO;} // Un numero entero
+("(-"{DIGITO}+")")|{DIGITO}+ {lexeme=yytext(); line=yyline; return LITERAL_NUM_ENTERO;} // Un numero entero
 
 (("#"{DIGITO}{DIGITO}{DIGITO}+)) {lexeme=yytext(); line=yyline; return ERROR;}
+
 . {lexeme=yytext(); line=yyline; return ERROR;}

@@ -28,9 +28,9 @@
                <content>
                   <TableView fx:id="tv_tokens_encontrados_id" prefHeight="428.0" prefWidth="465.0">
                     <columns>
-                      <TableColumn fx:id="tc_token_id" editable="false" prefWidth="110.0" resizable="false" text="Token" />
-                      <TableColumn fx:id="tc_tipo_token_id" editable="false" prefWidth="264.0" resizable="false" text="Tipo de Token" />
-                        <TableColumn fx:id="tc_linea_token_id" editable="false" minWidth="0.0" prefWidth="101.0" resizable="false" text="Línea" />
+                      <TableColumn fx:id="tc_token_id" editable="false" prefWidth="110.0" text="Token" />
+                      <TableColumn fx:id="tc_tipo_token_id" editable="false" prefWidth="264.0" text="Tipo de Token" />
+                        <TableColumn fx:id="tc_linea_token_id" editable="false" minWidth="0.0" prefWidth="101.0" text="Línea" />
                     </columns>
                   </TableView>
                </content>
@@ -39,8 +39,8 @@
                <content>
                   <TableView fx:id="tv_errores_lexicos_id" prefHeight="428.0" prefWidth="465.0">
                      <columns>
-                        <TableColumn fx:id="tc_error_id" editable="false" prefWidth="295.0" resizable="false" text="Error" />
-                        <TableColumn fx:id="tc_linea_error_id" editable="false" minWidth="0.0" prefWidth="180.0" resizable="false" text="Línea" />
+                        <TableColumn fx:id="tc_error_id" editable="false" prefWidth="295.0" text="Error" />
+                        <TableColumn fx:id="tc_linea_error_id" editable="false" minWidth="0.0" prefWidth="180.0" text="Línea" />
                      </columns>
                   </TableView>
                </content>

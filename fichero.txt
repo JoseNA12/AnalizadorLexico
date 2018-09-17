@@ -1,1 +1,1 @@
-calculadoragratuitaenlineaquecuentaelnfghmerodecaracteresoletrasdeuntextoPeriodisasqueescribenunartfculoestudiantesquetrabajanensusdfa
+while{h = g;}do(5+6);
