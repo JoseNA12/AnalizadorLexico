@@ -105,6 +105,46 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1940295689">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.41" value="1" />
+          <entry key="project.open.time.42" value="1" />
+          <entry key="project.open.time.51" value="1" />
+          <entry key="project.opened" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="class" value="1" />
+          <entry key="flex" value="1" />
+          <entry key="java" value="9" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="1" />
+          <entry key="JAVA" value="9" />
+          <entry key="PLAIN_TEXT" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="11" />
+          <entry key="flex" value="2224" />
+          <entry key="java" value="3748" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="3758" />
+          <entry key="JFlex" value="2214" />
+          <entry key="PLAIN_TEXT" value="11" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
@@ -114,14 +154,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/analizador/Main.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="178">
               <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+=======
+            <state relative-caret-position="128">
+              <caret line="78" column="14" selection-start-line="78" selection-start-column="14" selection-end-line="78" selection-end-column="14" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#main#0;class#Main#0" />
+                <element signature="e#4104#4105#0" expanded="true" />
+                <element signature="e#4137#4138#0" expanded="true" />
                 <element signature="method#initTablesViews#0;class#Main#0" />
                 <element signature="method#generarLexer#0;class#Main#0" />
-                <element signature="method#agregarElementoTablaTokens#0;class#Main#0" />
                 <element signature="docComment;method#agregarElementoTablaError#0;class#Main#0" />
                 <element signature="method#agregarElementoTablaError#0;class#Main#0" />
                 <element signature="method#readFile#0;class#Main#0" />
@@ -131,10 +176,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/analizador/Identificador.java">
+        <entry file="file://$PROJECT_DIR$/src/analizador/Token.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="-328">
+              <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -142,6 +187,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/analizador/Lexer.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="9180">
               <caret line="552" selection-start-line="552" selection-end-line="552" />
             </state>
@@ -153,34 +199,48 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="799">
               <caret line="47" column="24" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="24" />
+=======
+            <state relative-caret-position="576">
+              <caret line="747" column="14" selection-start-line="747" selection-start-column="14" selection-end-line="747" selection-end-column="14" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/analizador/Lexer.flex">
+        <entry file="file://$PROJECT_DIR$/src/analizador/LineaToken.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="1343">
               <caret line="79" column="36" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
+=======
+            <state relative-caret-position="51">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/analizador/GUI.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="23" column="105" selection-start-line="23" selection-start-column="105" selection-end-line="23" selection-end-column="120" />
             </state>
           </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/analizador/Metacaracteres">
+        <entry file="file://$PROJECT_DIR$/src/analizador/Lexer.flex">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="867">
               <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="9" />
+=======
+            <state relative-caret-position="278">
+              <caret line="19" column="63" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
             </state>
           </provider>
         </entry>
@@ -195,6 +255,13 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>lexeme</find>
+      <find>line</find>
+      <find>probarLexer</find>
+    </findStrings>
+  </component>
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
@@ -204,26 +271,27 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/lib/instalar_lib.txt" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/analizador/Token.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/analizador/Main.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/lib/instalar_lib.txt" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/analizador/Lexer.flex" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/analizador/Metacaracteres" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/analizador/Lexer.flex" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/lib/instalar_lib.txt" />
-        <option value="$PROJECT_DIR$/src/analizador/Lexer.java" />
         <option value="$PROJECT_DIR$/src/analizador/Controller.java" />
         <option value="$PROJECT_DIR$/src/analizador/ItemTabla.java" />
         <option value="$PROJECT_DIR$/src/analizador/ItemTablaTokens.java" />
         <option value="$PROJECT_DIR$/src/analizador/ItemTablaErrores.java" />
         <option value="$PROJECT_DIR$/src/analizador/jojoj" />
-        <option value="$PROJECT_DIR$/src/analizador/Token.java" />
         <option value="$PROJECT_DIR$/src/analizador/Metacaracteres" />
-        <option value="$PROJECT_DIR$/src/analizador/Lexer.flex" />
         <option value="$PROJECT_DIR$/src/analizador/GUI.fxml" />
+        <option value="$PROJECT_DIR$/src/analizador/Token.java" />
+        <option value="$PROJECT_DIR$/src/analizador/Lexer.java" />
+        <option value="$PROJECT_DIR$/src/analizador/LineaToken.java" />
+        <option value="$PROJECT_DIR$/src/analizador/Lexer.flex" />
         <option value="$PROJECT_DIR$/src/analizador/Main.java" />
       </list>
     </option>
@@ -256,6 +324,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
+=======
+      <pane id="AndroidView" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -284,7 +356,10 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="AndroidView" />
+=======
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
       <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
@@ -299,13 +374,14 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537038787246" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537135933896" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/lib/jflex-1.6.1.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -442,9 +518,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.1790831" />
+=======
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.18683812" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -452,8 +533,8 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32884097" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32884097" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32733223" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32569557" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -463,12 +544,12 @@
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
-      <window_info anchor="bottom" id="Event Log" order="12" weight="0.32884097" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32884097" />
+      <window_info anchor="bottom" id="Event Log" order="12" weight="0.32733223" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32733223" />
       <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="15" weight="0.32884097" />
+      <window_info anchor="bottom" id="Terminal" order="15" weight="0.32733223" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Maven Projects" order="1" weight="0.3295129" />
+      <window_info anchor="right" id="Maven Projects" order="1" weight="0.3290469" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="right" id="JetGradle" order="4" />
@@ -507,13 +588,6 @@
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa5868.42066/identificador.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa5564.13034/Token.java" />
     <entry file="file://$PROJECT_DIR$/src/analizador/Controller.java" />
-    <entry file="file://$PROJECT_DIR$/src/analizador/ItemTablaTokens.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/analizador/ItemTablaErrores.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -521,6 +595,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/analizador/Metacaracteres">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/analizador/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
@@ -542,25 +624,52 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/analizador/ItemTablaTokens.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="63" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/analizador/GUI.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="105" selection-start-line="23" selection-start-column="105" selection-end-line="23" selection-end-column="120" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/analizador/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9180">
           <caret line="552" selection-start-line="552" selection-end-line="552" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/analizador/LineaToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/analizador/Token.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="799">
           <caret line="47" column="24" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="24" />
+=======
+        <state relative-caret-position="-328">
+          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/analizador/Lexer.flex">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="1343">
           <caret line="79" column="36" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
         </state>
@@ -570,14 +679,47 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+=======
+        <state relative-caret-position="576">
+          <caret line="747" column="14" selection-start-line="747" selection-start-column="14" selection-end-line="747" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/src/lib/jflex-1.6.1.jar!/jflex/Main.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/analizador/Lexer.flex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="19" column="63" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
         </state>
       </provider>
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/analizador/Metacaracteres">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="867">
           <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="9" />
+=======
+        <state relative-caret-position="128">
+          <caret line="78" column="14" selection-start-line="78" selection-start-column="14" selection-end-line="78" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4104#4105#0" expanded="true" />
+            <element signature="e#4137#4138#0" expanded="true" />
+            <element signature="method#initTablesViews#0;class#Main#0" />
+            <element signature="method#generarLexer#0;class#Main#0" />
+            <element signature="docComment;method#agregarElementoTablaError#0;class#Main#0" />
+            <element signature="method#agregarElementoTablaError#0;class#Main#0" />
+            <element signature="method#readFile#0;class#Main#0" />
+          </folding>
+>>>>>>> da8736625a8443d00ffbcf8b8196e9560fc507eb
         </state>
       </provider>
     </entry>
@@ -635,6 +777,18 @@
       <state key="ModuleStructureConfigurable.UI">
         <settings>
           <last-edited>AnalizadorLexico</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
