@@ -99,7 +99,7 @@ public class Main extends Application {
                 default:
                     resultado = "<" + lexer.lexeme + "> ";
             }*/
-            agregarLineaToken(lexer.lexeme, token.toString(), lexer.line);
+            agregarLineaToken(lexer.lexeme, token.getNombre(), lexer.line);
         }
     }
 
