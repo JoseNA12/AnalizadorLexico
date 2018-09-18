@@ -17,6 +17,7 @@ WHITE_SPACE_CHAR=[\ \n\r\t\f]
 SIMBOLO = [#!$%&?¡{}_]
 // con [ ] funciona mejor, pero son parte de los símbolos de operadores xD
 OPERADOR = "*"|"+"|"-"|"/"|"="|","|"."|";"|":"|"<"|">"|"("|")"|"["|"]"
+// OPERADOR = ","|";"|"++"|"--"|">="|">"|"<="|"<"|"<>"|"="|"+"|"-"|"*"|"/"|"("|")"|"["|"]"|":="|"."|":"|"+="|"-="|"*="|"/="|">>"|"<<"|"<<="|">>="
 ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 %%
 
@@ -132,8 +133,8 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 
 
 // Flotantes
-{DIGITO}+"."{DIGITO}+("."{DIGITO}+)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
-"."{DIGITO}+([eE][-]?{DIGITO}+)? {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+[-]?{DIGITO}+"."{DIGITO}+("."{DIGITO}+)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+[-]?"."{DIGITO}+([eE][-]?{DIGITO}+)? {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 // Literales
 "#"{DIGITO}{DIGITO}{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
