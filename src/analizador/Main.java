@@ -27,7 +27,7 @@ public class Main extends Application {
     @FXML public TableView<ItemTablaTokens> tv_tokens_encontrados_id;
     @FXML public TableColumn<ItemTablaTokens, String> tc_token_id, tc_tipo_token_id, tc_linea_token_id;
     @FXML public TableView<ItemTablaErrores> tv_errores_lexicos_id;
-    @FXML public TableColumn<ItemTablaErrores, String> tc_error_id, tc_linea_error_id;
+    @FXML public TableColumn<ItemTablaErrores, String> tc_error_id, tc_linea_error_id, tc_tipo_error_id;
     private final ObservableList<ItemTablaTokens> info_tabla_tokens = FXCollections.observableArrayList();
     private final ObservableList<ItemTablaErrores> info_tabla_errores = FXCollections.observableArrayList();
 
@@ -48,7 +48,7 @@ public class Main extends Application {
 
         try {
             writer = new PrintWriter(fichero);
-            writer.print(ta_insertar_texto_id.getText());
+            writer.print(ta_insertar_texto_id.getText()); // .toUpperCase();
             writer.close();
         }
         catch (FileNotFoundException ex) {
@@ -79,38 +79,15 @@ public class Main extends Application {
                 return;
             }
 
-            /*switch (token) {
-                case OPERADOR:
-                    resultado = "<->"; // corregir por los correctos (estos es solo para probar que funciona)
-                    break;
-                case PALABRA_RESERVADA:
-                    resultado = "<*>";
-                    break;
-                case LITERAL:
-                    resultado = "</>";
-                    break;
-                case ERROR:
-                    resultado = "Error, simbolo no reconocido ";
-                    break;
-                case IDENTIFICADOR: {
-                    resultado = "< " + lexer.lexeme + "> ";
-                    break;
-                }
-                case INT:
-                    resultado = "< " + lexer.lexeme + "> ";
-                    break;
-                default:
-                    resultado = "<" + lexer.lexeme + "> ";
-            }*/
-            if (token != Token.ERROR)
+            if ((token != Token.ERROR) && (token != Token.ERROR_LITERAL) && (token != Token.ERROR_IDENTIFICADOR
+                    && (token != Token.ERROR_OPERADOR) && (token != Token.ERROR_PALABRA_RESERVADA)))
             {
                 agregarLineaToken(lexer.lexeme, token.getNombre(), lexer.line);
             }
             else
             {
-                agregarLineaTokenErrores(lexer.lexeme, lexer.line);
+                agregarLineaTokenErrores(lexer.lexeme, token.getNombre(), lexer.line);
             }
-
         }
     }
 
@@ -119,7 +96,7 @@ public class Main extends Application {
         miPrimaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         miPrimaryStage.setTitle("Analizador Léxico");
-        miPrimaryStage.setScene(new Scene(root, 851, 545));
+        miPrimaryStage.setScene(new Scene(root, 900, 542));
         miPrimaryStage.show();
     }
 
@@ -151,6 +128,7 @@ public class Main extends Application {
 
         // Errores
         tc_error_id.setCellValueFactory(new PropertyValueFactory<>("error"));
+        tc_tipo_error_id.setCellValueFactory(new PropertyValueFactory<>("tipoError"));
         tc_linea_error_id.setCellValueFactory(new PropertyValueFactory<>("linea_error"));
         tv_errores_lexicos_id.setItems(info_tabla_errores);
     }
@@ -218,7 +196,7 @@ public class Main extends Application {
      * @param token token analizado
      * @param numeroLinea número de línea de aparición del token analizado
      */
-    private void agregarLineaTokenErrores(String token, int numeroLinea){
+    private void agregarLineaTokenErrores(String token, String tipoError, int numeroLinea){
         LineaToken linea = null;
         boolean existe = false;
         for(int i=0; i< tokenslistErrores.size(); i++){
@@ -233,7 +211,7 @@ public class Main extends Application {
         }else{
             Map<Integer, Integer> lineasAparicion = new HashMap<Integer, Integer>();
             lineasAparicion.put(numeroLinea, 1);
-            tokenslistErrores.add(new LineaToken(token, "", lineasAparicion));
+            tokenslistErrores.add(new LineaToken(token, tipoError, lineasAparicion));
         }
     }
 
@@ -257,7 +235,7 @@ public class Main extends Application {
                     lineas += (key + 1) + ", ";
                 }
             }
-            info_tabla_errores.add(new ItemTablaErrores(new SimpleStringProperty(l.token), new SimpleStringProperty(lineas)));
+            info_tabla_errores.add(new ItemTablaErrores(new SimpleStringProperty(l.token), new SimpleStringProperty(l.tipoToken), new SimpleStringProperty(lineas)));
         }
     }
 

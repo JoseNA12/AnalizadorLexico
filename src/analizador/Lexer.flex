@@ -3,19 +3,21 @@ import jdk.nashorn.internal.ir.LiteralNode;import static analizador.Token.*;
 %%
 %class Lexer
 %type Token
-LENGUAGE = [ABC]
-LETRA = [a-zA-Z_]
-DIGITO = [0-9]
-ESPACIO =[ \t\r\n]
-SIMBOLO = "*"|"+"|"-"|"/"|"#"|"!"|"#"|"$"|"%"|"&"|"/"|"("|")"|"="|"?"|"¡"|"{"|"}"|","|"."|"-"|";"|":"|"_"|"["|"]"|"<"|">"
-// TERMINADORLINEA = \r |\n |\r\n
+%ignorecase
 %{
 public String lexeme;
 public int line;
 %}
 %line
+LENGUAGE = [ABC]
+LETRA = [a-zA-Z_]
+DIGITO = [0-9]
+ESPACIO = [ \t \r \n \f \r\n]
+WHITE_SPACE_CHAR=[\ \n\r\t\f]
+SIMBOLO = "*"|"+"|"-"|"/"|"#"|"!"|"#"|"$"|"%"|"&"|"/"|"("|")"|"="|"?"|"¡"|"{"|"}"|","|"."|"-"|";"|":"|"_"|"["|"]"|"<"|">"
 %%
-{ESPACIO} {/*No se procesa*/} // espacio en blanco
+
+{WHITE_SPACE_CHAR} {/*No se procesa*/} // espacio en blanco
 "//".* {/*No se procesa*/} // dos slash de comentario
 ("\(\*" [^*] ~"\*\)" | "\(\*" "\*"+ "\)") {/*No se procesa*/} // comentario multilínea
 ("{" [^*] ~"}" | "{" "}") {/*No se procesa*/} // comentario multilínea
@@ -49,7 +51,7 @@ public int line;
 "<<" {lexeme=yytext(); line=yyline; return OPERADOR_DESPLAZAMIENTO_IZQUIERDA;}
 "<<=" {lexeme=yytext(); line=yyline; return OPERADOR_ASIGNACION_DESPLAZAMIENTO_DERECHA;}
 ">>=" {lexeme=yytext(); line=yyline; return OPERADOR_ASIGNACION_DESPLAZAMIENTO_IZQUIERDA;}
-%caseless
+
 "AND" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
 "ARRAY" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
 "BEGIN" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
@@ -58,7 +60,7 @@ public int line;
 "CASE" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
 "CHAR" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
 "CONST" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
-"DIV" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;} // operader
+"DIV" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;} // operador
 "DO" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
 "DOWNTO" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
 "ELSE" {lexeme=yytext(); line=yyline; return PALABRA_RESERVADA;}
@@ -103,11 +105,28 @@ public int line;
 
 
 
-{LETRA}({LETRA}|{DIGITO}){1, 127} {lexeme=yytext(); line=yyline; return IDENTIFICADOR;} // Identificadores
-({DIGITO}+"."{DIGITO}+)|(({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
-(\"({LETRA}|{DIGITO}|{ESPACIO}|{SIMBOLO})*+\" | ("#"{DIGITO}{DIGITO})) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
+// |-------------------- RECONOCER EXPRESIONES --------------------| //
+// Identificadores
+({LETRA}({LETRA}|{DIGITO})*){1, 127} {lexeme=yytext(); line=yyline; return IDENTIFICADOR;}
+
+// Flotantes
+(({DIGITO}+"."{DIGITO}+)) |
+    (({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
+
+// Literales
+\"({LETRA}|{DIGITO}|{ESPACIO}|{SIMBOLO})*+\" | ("#"{DIGITO}{DIGITO}) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 ("(-"{DIGITO}+")")|{DIGITO}+ {lexeme=yytext(); line=yyline; return LITERAL_NUM_ENTERO;} // Un numero entero
 
-(("#"{DIGITO}{DIGITO}{DIGITO}+)) {lexeme=yytext(); line=yyline; return ERROR;}
+
+// // |-------------------- RECONOCER ERRORES --------------------| //
+// Identificadores
+// no funca ({LETRA}|{DIGITO}|(.))({LETRA}|{DIGITO}|(.))* {lexeme=yytext(); line=yyline; return ERROR;}
+
+// Flotantes
+
+
+// Literales
+"#"{DIGITO}{DIGITO}{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+
 
 . {lexeme=yytext(); line=yyline; return ERROR;}

@@ -15,7 +15,7 @@ public enum Token {
     OPERADOR_SIGNO("Operador de signo"),
 
     // Monarios
-    OPERADOR_INCREMENTO("Operador de increment unarioo"),
+    OPERADOR_INCREMENTO("Operador de increment unario"),
     OPERADOR_DISMINUCION("Operador de disminución unario"),
 
     // Lógicos : NOT OR AND
@@ -58,7 +58,12 @@ public enum Token {
     LITERAL_CARACTER("Literal caracter"),
     LITERAL_STRING("Literal strings"),
 
+    // |------------------- ERRRORES -------------------|
     ERROR("Error"),
+    ERROR_LITERAL("Error literal"),
+    ERROR_IDENTIFICADOR("Error de identificador"),
+    ERROR_PALABRA_RESERVADA("Error de palabra reservada"),
+    ERROR_OPERADOR("Error de operador"),
 
     COMENTARIO("Comentario");
 
