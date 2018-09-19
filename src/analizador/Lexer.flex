@@ -14,7 +14,7 @@ LETRA = [a-zA-Z_]
 DIGITO = [0-9]
 ESPACIO = [ \t \r \n \f \r\n]
 // WHITE_SPACE_CHAR=[\ \n\r\t\f]
-SIMBOLO = [#!$%&?¡{}_]
+SIMBOLO = [#!$%&?¡_]
 // con [ ] funciona mejor, pero son parte de los símbolos de operadores xD
 OPERADOR = "*"|"+"|"-"|"/"|"="|","|"."|";"|":"|"<"|">"|"("|")"|"["|"]"
 // OPERADOR = ","|";"|"++"|"--"|">="|">"|"<="|"<"|"<>"|"="|"+"|"-"|"*"|"/"|"("|")"|"["|"]"|":="|"."|":"|"+="|"-="|"*="|"/="|">>"|"<<"|"<<="|">>="
@@ -118,7 +118,7 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
     ([-]?({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
 
 // Literales
-\"[^*]*\" {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
+((\"[^\"] ~\")|(\"\")) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 //\"({LETRA}|{DIGITO}|{ESPACIO}|{SIMBOLO})*+\" | ("#"{DIGITO}{DIGITO}) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 ("#"{DIGITO}{DIGITO}) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 ("(-"{DIGITO}+")")|{DIGITO}+ {lexeme=yytext(); line=yyline; return LITERAL_NUM_ENTERO;} // Un numero entero
@@ -143,10 +143,12 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 ([-]?{DIGITO}+"."{DIGITO}+{LETRA}+) | ([-]?{DIGITO}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // ab.12ab | ab.ab12
 ([-]?{LETRA}+"."{DIGITO}+{LETRA}+) | ([-]?{LETRA}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// 3,14
+[-]?{DIGITO}+","{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 // Literales
 "#"{DIGITO}{DIGITO}{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
-
+'[^'] ~' {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 
 . {lexeme=yytext(); line=yyline; return ERROR;}
