@@ -13,7 +13,7 @@ LENGUAGE = [ABC]
 LETRA = [a-zA-Z_]
 DIGITO = [0-9]
 ESPACIO = [ \t \r \n \f \r\n]
-WHITE_SPACE_CHAR=[\ \n\r\t\f]
+// WHITE_SPACE_CHAR=[\ \n\r\t\f]
 SIMBOLO = [#!$%&?¡{}_]
 // con [ ] funciona mejor, pero son parte de los símbolos de operadores xD
 OPERADOR = "*"|"+"|"-"|"/"|"="|","|"."|";"|":"|"<"|">"|"("|")"|"["|"]"
@@ -21,11 +21,11 @@ OPERADOR = "*"|"+"|"-"|"/"|"="|","|"."|";"|":"|"<"|">"|"("|")"|"["|"]"
 ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 %%
 
-{WHITE_SPACE_CHAR} {/*No se procesa*/} // espacio en blanco
+{ESPACIO} {/*No se procesa*/} // espacio en blanco
 "//".* {/*No se procesa*/} // dos slash de comentario
 ("\(\*" [^*] ~"\*\)" | "\(\*" "\*"+ "\)") {/*No se procesa*/} // comentario multilínea
 ("{" [^*] ~"}" | "{" "}") {/*No se procesa*/} // comentario multilínea
-"<<EOF>>" {/*No se procesa*/}
+"<<EOF>>" {lexeme=yytext(); line=yyline; return OPERADOR;}
 "," {lexeme=yytext(); line=yyline; return OPERADOR;}
 ";" {lexeme=yytext(); line=yyline; return OPERADOR;}
 "++" {lexeme=yytext(); line=yyline; return OPERADOR_INCREMENTO;}
@@ -114,11 +114,11 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 {LETRA}(({LETRA}|{DIGITO}){1, 127})? {lexeme=yytext(); line=yyline; return IDENTIFICADOR;}
 
 // Flotantes
-(({DIGITO}+"."{DIGITO}+)) |
-    (({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
+([-]?({DIGITO}+"."{DIGITO}+)) |
+    ([-]?({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
 
 // Literales
-\"[^*]+\" {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
+\"[^*]*\" {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 //\"({LETRA}|{DIGITO}|{ESPACIO}|{SIMBOLO})*+\" | ("#"{DIGITO}{DIGITO}) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 ("#"{DIGITO}{DIGITO}) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 ("(-"{DIGITO}+")")|{DIGITO}+ {lexeme=yytext(); line=yyline; return LITERAL_NUM_ENTERO;} // Un numero entero
@@ -133,8 +133,16 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 
 
 // Flotantes
-[-]?{DIGITO}+"."{DIGITO}+("."{DIGITO}+)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
-[-]?"."{DIGITO}+([eE][-]?{DIGITO}+)? {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// 12.12.12...
+[-]?{DIGITO}+"."{DIGITO}+("."{DIGITO}*)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// .12e12 / .12e / .12
+[-]?"."{DIGITO}+([eE][-]?{DIGITO}*)? {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// 12ab.12 | ab12.12
+([-]?{DIGITO}+{LETRA}+"."{DIGITO}+) | ([-]?{LETRA}+{DIGITO}+"."{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// 12.12ab | 12.ab12
+([-]?{DIGITO}+"."{DIGITO}+{LETRA}+) | ([-]?{DIGITO}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// ab.12ab | ab.ab12
+([-]?{LETRA}+"."{DIGITO}+{LETRA}+) | ([-]?{LETRA}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 // Literales
 "#"{DIGITO}{DIGITO}{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
