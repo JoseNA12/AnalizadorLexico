@@ -9,22 +9,22 @@ public String lexeme;
 public int line;
 %}
 %line
-LENGUAGE = [ABC]
+//,LENGUAGE = [ABC]
 LETRA = [a-zA-Z_]
 DIGITO = [0-9]
 ESPACIO = [ \t \r \n \f \r\n]
 // WHITE_SPACE_CHAR=[\ \n\r\t\f]
 SIMBOLO = [#!$%&?¡_]
 // con [ ] funciona mejor, pero son parte de los símbolos de operadores xD
-OPERADOR = "*"|"+"|"-"|"/"|"="|","|"."|";"|":"|"<"|">"|"("|")"|"["|"]"
+// OPERADOR = "*"|"+"|"-"|"/"|"="|","|"."|";"|":"|"<"|">"|"("|")"|"["|"]"
 // OPERADOR = ","|";"|"++"|"--"|">="|">"|"<="|"<"|"<>"|"="|"+"|"-"|"*"|"/"|"("|")"|"["|"]"|":="|"."|":"|"+="|"-="|"*="|"/="|">>"|"<<"|"<<="|">>="
 ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 %%
 
 {ESPACIO} {/*No se procesa*/} // espacio en blanco
 "//".* {/*No se procesa*/} // dos slash de comentario
-("\(\*" [^*] ~"\*\)" | "\(\*" "\*"+ "\)") {/*No se procesa*/} // comentario multilínea
-("{" [^*] ~"}" | "{" "}") {/*No se procesa*/} // comentario multilínea
+("\(\*" ~"\*\)" | "\(\*" "\*"+ "\)") {/*No se procesa*/} // comentario multilínea
+("{" ~"}" | "{" "}") {/*No se procesa*/} // comentario multilínea
 "<<EOF>>" {lexeme=yytext(); line=yyline; return OPERADOR;}
 "," {lexeme=yytext(); line=yyline; return OPERADOR;}
 ";" {lexeme=yytext(); line=yyline; return OPERADOR;}
@@ -131,7 +131,6 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 //identificador no lleva simbolos
 ({LETRA}(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}){1, 127})?) {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
 
-
 // Flotantes
 // 12.12.12...
 [-]?{DIGITO}+"."{DIGITO}+("."{DIGITO}*)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
@@ -150,5 +149,9 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 "#"{DIGITO}{DIGITO}{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 '[^'] ~' {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
+// Comentarios
+\"[^\"]* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+\(\*[^\)\*]* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+\{[^\}]* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 . {lexeme=yytext(); line=yyline; return ERROR;}
