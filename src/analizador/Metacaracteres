@@ -32,7 +32,7 @@ x|y 	Marca x o y, una de las opciones
 `r+' una o más r's
 `r?' cero o una r (es decir, "una r opcional")
 `r{2,5}' donde sea de dos a cinco r's
-`r{2,}' dos o más r's
+`r{2,}' | r(2)(r)* dos o más r's
 `r{4}' exactamente 4 r's
 `{nombre}' la expansión de la definición de "nombre" (ver más abajo)
 `"[xyz]\"foo"' la cadena literal: [xyz]"foo
