@@ -149,7 +149,7 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 {DIGITO}+","{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 // Literales
-"#"{LETRA}{DIGITO}* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+"#"{LETRA}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 '[^'] ~' {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 // Comentarios
