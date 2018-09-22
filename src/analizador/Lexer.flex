@@ -13,11 +13,10 @@ public int line;
 LETRA = [a-zA-Z_]
 DIGITO = [0-9]
 ESPACIO = [ \t \r \n \f \r\n]
-// WHITE_SPACE_CHAR=[\ \n\r\t\f]
 SIMBOLO = [#!$%&?¡_]
 // con [ ] funciona mejor, pero son parte de los símbolos de operadores xD
 // OPERADOR = "*"|"+"|"-"|"/"|"="|","|"."|";"|":"|"<"|">"|"("|")"|"["|"]"
-// OPERADOR = ","|";"|"++"|"--"|">="|">"|"<="|"<"|"<>"|"="|"+"|"-"|"*"|"/"|"("|")"|"["|"]"|":="|"."|":"|"+="|"-="|"*="|"/="|">>"|"<<"|"<<="|">>="
+OPERADOR = ","|";"|"++"|"--"|">="|">"|"<="|"<"|"<>"|"="|"+"|"-"|"*"|"/"|"("|")"|"["|"]"|":="|"."|":"|"+="|"-="|"*="|"/="|">>"|"<<"|"<<="|">>="
 ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 %%
 
@@ -114,13 +113,13 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 {LETRA}(({LETRA}|{DIGITO}){0, 126})? {lexeme=yytext(); line=yyline; return IDENTIFICADOR;}
 
 // Flotantes
-([-]?({DIGITO}+"."{DIGITO}+)) |
-    ([-]?({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
+(({DIGITO}+"."{DIGITO}+)) |
+    (({DIGITO}"."{DIGITO}+)([eE][-]?{DIGITO}+)) {lexeme=yytext(); line=yyline; return LITERAL_NUM_FLOTANTE;}
 
 // Literales
 ((\"[^\"] ~\")|(\"\")) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 //\"({LETRA}|{DIGITO}|{ESPACIO}|{SIMBOLO})*+\" | ("#"{DIGITO}{DIGITO}) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
-("#"{DIGITO}{DIGITO}) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
+("#"{DIGITO}+) {lexeme=yytext(); line=yyline; return LITERAL_STRING;}
 ("(-"{DIGITO}+")")|{DIGITO}+ {lexeme=yytext(); line=yyline; return LITERAL_NUM_ENTERO;} // Un numero entero
 
 
@@ -129,31 +128,33 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 //identificador mayor a 127 caracteres
 {LETRA}(({LETRA}|{DIGITO}){127})({LETRA}|{DIGITO})* {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
 //identificador no comienza con digito
-(({DIGITO}+){LETRA}(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}))?) {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
+(({DIGITO}+)({LETRA}|{ACENTO}))(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}))* {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
 //identificador no lleva simbolos
-({LETRA}(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}))?) {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
+({LETRA}|{ACENTO}|{SIMBOLO})(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}))+ {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
 
 // Flotantes
 // 12.12.12...
-[-]?{DIGITO}+"."{DIGITO}+("."{DIGITO}*)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
-// .12e12 / .12e / .12
-[-]?"."{DIGITO}+([eE][-]?{DIGITO}*)? {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+{DIGITO}+"."{DIGITO}+("."{DIGITO}*)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// .12e12 / .12e / .12  | 12.23e-23.12
+("."{DIGITO}+([eE][-]?{DIGITO}*)?) | ({DIGITO}+"."{DIGITO}+([eE][-]?){DIGITO}*"."{DIGITO}*) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // 12ab.12 | ab12.12
-([-]?{DIGITO}+{LETRA}+"."{DIGITO}+) | ([-]?{LETRA}+{DIGITO}+"."{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+({DIGITO}+{LETRA}+"."{DIGITO}+) | ({LETRA}+{DIGITO}+"."{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // 12.12ab | 12.ab12
-([-]?{DIGITO}+"."{DIGITO}+{LETRA}+) | ([-]?{DIGITO}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+({DIGITO}+"."{DIGITO}+{LETRA}+) | ({DIGITO}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // ab.12ab | ab.ab12
-([-]?{LETRA}+"."{DIGITO}+{LETRA}+) | ([-]?{LETRA}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+({LETRA}+"."{DIGITO}+{LETRA}+) | ({LETRA}+"."{LETRA}+{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+// 12. | 12e.
+({DIGITO}+{LETRA}*".") {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // 3,14
-[-]?{DIGITO}+","{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+{DIGITO}+","{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 // Literales
-"#"{DIGITO}{DIGITO}{DIGITO}+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+"#"{LETRA}{DIGITO}* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 '[^'] ~' {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 
 // Comentarios
-\"[^\"]* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
-\(\*[^\)\*]* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
-\{[^\}]* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+\"[^\"]* {lexeme=yytext(); line=yyline; return ERROR;}
+\(\*[^\)\*]* {lexeme=yytext(); line=yyline; return ERROR;}
+\{[^\}]* {lexeme=yytext(); line=yyline; return ERROR;}
 
 . {lexeme=yytext(); line=yyline; return ERROR;}
