@@ -136,7 +136,7 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 // 12.12.12...
 {DIGITO}+"."{DIGITO}+("."{DIGITO}*)+ {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // .12e12 / .12e / .12  | 12.23e-23.12
-("."{DIGITO}+([eE][-]?{DIGITO}*)?) | ({DIGITO}+"."{DIGITO}+([eE][-]?){DIGITO}*"."{DIGITO}*) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
+("."{DIGITO}+([eE][-]?{DIGITO}*)?) | ({DIGITO}+"."{DIGITO}+([eE][-]?)({DIGITO}*"."{DIGITO}*))* {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // 12ab.12 | ab12.12
 ({DIGITO}+{LETRA}+"."{DIGITO}+) | ({LETRA}+{DIGITO}+"."{DIGITO}+) {lexeme=yytext(); line=yyline; return ERROR_LITERAL;}
 // 12.12ab | 12.ab12
