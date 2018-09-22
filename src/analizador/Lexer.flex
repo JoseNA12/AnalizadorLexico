@@ -111,7 +111,7 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 
 // |-------------------- RECONOCER EXPRESIONES --------------------| //
 // Identificadores
-{LETRA}(({LETRA}|{DIGITO}){1, 127})? {lexeme=yytext(); line=yyline; return IDENTIFICADOR;}
+{LETRA}(({LETRA}|{DIGITO}){0, 126})? {lexeme=yytext(); line=yyline; return IDENTIFICADOR;}
 
 // Flotantes
 ([-]?({DIGITO}+"."{DIGITO}+)) |
@@ -126,10 +126,12 @@ ACENTO = [ñÑáéíóúÁÉÍÓÚ]
 
 // // |-------------------- RECONOCER ERRORES --------------------| //
 // Identificadores
+//identificador mayor a 127 caracteres
+{LETRA}(({LETRA}|{DIGITO}){127})({LETRA}|{DIGITO})* {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
 //identificador no comienza con digito
-(({DIGITO}+){LETRA}(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}){1, 127})?) {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
+(({DIGITO}+){LETRA}(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}))?) {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
 //identificador no lleva simbolos
-({LETRA}(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}){1, 127})?) {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
+({LETRA}(({LETRA}|{DIGITO}|{SIMBOLO}|{ACENTO}))?) {lexeme=yytext(); line=yyline; return ERROR_IDENTIFICADOR;}
 
 // Flotantes
 // 12.12.12...
