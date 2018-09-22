@@ -11,18 +11,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="584.0" maxWidth="956.0" minHeight="584.0" minWidth="956.0" prefHeight="584.0" prefWidth="956.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="analizador.Main">
+<Pane maxHeight="623.0" maxWidth="1087.0" minHeight="584.0" minWidth="1070.0" prefHeight="623.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="analizador.Main">
    <children>
       <Label layoutX="616.0" layoutY="37.0" text="Inserte el texto:" />
-      <TextArea fx:id="ta_insertar_texto_id" layoutX="615.0" layoutY="54.0" prefHeight="460.0" prefWidth="305.0" wrapText="true">
+      <TextArea fx:id="ta_insertar_texto_id" layoutX="615.0" layoutY="54.0" prefHeight="498.0" prefWidth="416.0">
          <font>
             <Font name="Consolas" size="12.0" />
          </font></TextArea>
-      <Separator layoutX="581.0" layoutY="38.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="11.0" />
+      <Separator layoutX="581.0" layoutY="38.0" orientation="VERTICAL" prefHeight="544.0" prefWidth="11.0" />
       <Label layoutX="48.0" layoutY="37.0" text="Resultado:" />
-      <Button fx:id="btn_abrir_archivo_id" layoutX="615.0" layoutY="520.0" mnemonicParsing="false" onAction="#btn_action_abrirArchivo" text="Abrir archivo" />
-      <Button fx:id="btn_procesar_id" layoutX="858.0" layoutY="520.0" mnemonicParsing="false" onAction="#probarLexerFile" text="Procesar" />
-      <TabPane layoutX="41.0" layoutY="38.0" prefHeight="503.0" prefWidth="516.0" tabClosingPolicy="UNAVAILABLE">
+      <Button fx:id="btn_abrir_archivo_id" layoutX="615.0" layoutY="557.0" mnemonicParsing="false" onAction="#btn_action_abrirArchivo" text="Abrir archivo" />
+      <Button fx:id="btn_procesar_id" layoutX="969.0" layoutY="557.0" mnemonicParsing="false" onAction="#probarLexerFile" text="Procesar" />
+      <TabPane layoutX="41.0" layoutY="38.0" prefHeight="544.0" prefWidth="516.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Tokens encontrados">
                <content>
