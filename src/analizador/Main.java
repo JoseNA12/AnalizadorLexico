@@ -96,7 +96,7 @@ public class Main extends Application {
         miPrimaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         miPrimaryStage.setTitle("Analizador Léxico");
-        miPrimaryStage.setScene(new Scene(root, 900, 542));
+        miPrimaryStage.setScene(new Scene(root, 1070, 623));
         miPrimaryStage.show();
     }
 
